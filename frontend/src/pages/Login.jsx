@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const { login } = useAuth();
@@ -48,6 +49,15 @@ function Login() {
             className="w-full border rounded-lg p-3 mb-6"
             required
           />
+          <p>
+  New user?
+  <Link 
+    to="/register"
+    style={{color:"blue", marginLeft:"10px"}}
+  >
+    Register
+  </Link>
+</p>
 
           <button
             type="submit"

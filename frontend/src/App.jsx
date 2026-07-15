@@ -9,6 +9,7 @@ import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import AddSale from "./pages/AddSale";
 import AddExpense from "./pages/AddExpense";
+import Register from "./pages/Register";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -97,7 +98,10 @@ function App() {
         }
       />
 
-
+<Route
+ path="/register"
+ element={<Register />}
+/>
       <Route
         path="/profile"
         element={
