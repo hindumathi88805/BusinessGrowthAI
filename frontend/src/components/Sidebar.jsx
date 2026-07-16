@@ -31,20 +31,19 @@ function Sidebar() {
   ℹ️ About
 </Link>
 
+<Link
+  to="/goals"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  🎯 Business Goals
+</Link>
+
 
 <Link 
   to="/sales"
   className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
 >
   💰 Sales
-</Link>
-
-
-<Link
-  to="/goals"
-  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
->
-  🎯 Business Goals
 </Link>
 
 
