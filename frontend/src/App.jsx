@@ -14,7 +14,8 @@ import Upload from "./pages/Upload";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AIChat from "./pages/AIChat";
 import About from "./pages/About";
-
+import Home from "./pages/Home";
+import Goals from "./pages/Goals";
 
 function App() {
 
@@ -24,9 +25,13 @@ function App() {
 
       {/* Public Route */}
       <Route 
-        path="/" 
-        element={<Login />} 
-      />
+  path="/" 
+  element={<Home />} 
+/>
+<Route 
+  path="/login" 
+  element={<Login />} 
+/>
 
 
       {/* Protected Routes */}
@@ -109,6 +114,15 @@ function App() {
  path="/ai-chat"
  element={<AIChat />}
 />
+<Route
+ path="/goals"
+ element={
+   <ProtectedRoute>
+     <Goals />
+   </ProtectedRoute>
+ }
+/>
+
       <Route
         path="/profile"
         element={

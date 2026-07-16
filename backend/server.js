@@ -13,6 +13,7 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const uploadHistoryRoutes = require("./routes/uploadHistoryRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const reportRoutes = require("./routes/reportRoutes");
+const goalRoutes = require("./routes/goalRoutes");
 
 
 dotenv.config();
@@ -51,6 +52,7 @@ app.use("/api/uploads", uploadHistoryRoutes);
 app.use("/api/chat", chatRoutes);
 
 app.use("/api/reports", reportRoutes);
+app.use("/api/goals", goalRoutes);
 
 
 

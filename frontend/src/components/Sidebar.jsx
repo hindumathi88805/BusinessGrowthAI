@@ -17,97 +17,99 @@ function Sidebar() {
 
 
         <Link 
-          to="/dashboard"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          📊 Dashboard
-        </Link>
+  to="/dashboard"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  📊 Dashboard
+</Link>
+
 
 <Link
   to="/about"
-  className="block hover:bg-gray-700 p-3 rounded-lg"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
 >
   ℹ️ About
 </Link>
 
-        <Link 
-          to="/sales"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          💰 Sales
-        </Link>
+
+<Link 
+  to="/sales"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  💰 Sales
+</Link>
 
 
-
-        <Link 
-          to="/add-sale"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          ➕ Add Sale
-        </Link>
-
+<Link
+  to="/goals"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  🎯 Business Goals
+</Link>
 
 
-        <Link 
-          to="/expenses"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          💳 Expenses
-        </Link>
+<Link 
+  to="/add-sale"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  ➕ Add Sale
+</Link>
 
 
-
-        <Link 
-          to="/add-expense"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          ➕ Add Expense
-        </Link>
-
+<Link 
+  to="/expenses"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  💳 Expenses
+</Link>
 
 
-        <Link 
-          to="/reports"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          📈 Reports
-        </Link>
+<Link 
+  to="/add-expense"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  ➕ Add Expense
+</Link>
 
 
-
-        <Link
-          to="/upload"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          📂 Upload File
-        </Link>
-
+<Link 
+  to="/reports"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  📈 Reports
+</Link>
 
 
-        <Link 
-          to="/ai-suggestions"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          🤖 AI Suggestions
-        </Link>
+<Link
+  to="/upload"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  📂 Upload File
+</Link>
 
 
-
-        <Link 
-          to="/ai-chat"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          💬 AI Chat Assistant
-        </Link>
-
+<Link 
+  to="/ai-suggestions"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  🤖 AI Suggestions
+</Link>
 
 
-        <Link 
-          to="/profile"
-          className="block hover:bg-gray-700 p-3 rounded-lg"
-        >
-          👤 Profile
-        </Link>
+<Link 
+  to="/ai-chat"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  💬 AI Chat Assistant
+</Link>
+
+
+<Link 
+  to="/profile"
+  className="flex items-center gap-3 hover:bg-gray-700 p-3 rounded-lg transition"
+>
+  👤 Profile
+</Link>
 
 
 
