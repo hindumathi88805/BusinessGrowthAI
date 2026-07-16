@@ -1,10 +1,19 @@
 const XLSX = require("xlsx");
 const Sale = require("../models/Sale");
+const Upload = require("../models/Upload");
 
 
 exports.uploadFile = async (req, res) => {
 
   try {
+
+    if (!req.file) {
+      return res.status(400).json({
+        success:false,
+        message:"No file uploaded"
+      });
+    }
+
 
     const workbook = XLSX.read(req.file.buffer);
 
@@ -21,41 +30,89 @@ exports.uploadFile = async (req, res) => {
 
     const salesData = data.map((item)=>{
 
-      const quantity = Number(item.quantity || 0);
+      const quantity = Number(
+        item.quantity || item.Quantity || 0
+      );
 
-      const totalAmount = Number(item.totalAmount || 0);
+
+      const totalAmount = Number(
+        item.totalAmount || item.TotalAmount || 0
+      );
 
 
       revenue += totalAmount;
-
       products += quantity;
 
 
       return {
+
         user:req.user._id,
-        product:item.product,
+
+        product:
+          item.product ||
+          item.Product ||
+          "Unknown",
+
         quantity,
-        price: totalAmount / quantity,
+
+        price:
+          quantity > 0 
+          ? totalAmount / quantity 
+          : 0,
+
         totalAmount
+
       };
 
     });
 
 
-    await Sale.insertMany(salesData);
+
+    // Save sales
+    const savedSales = await Sale.insertMany(
+      salesData
+    );
+
+
+    // Save upload history
+    const upload = await Upload.create({
+
+      user:req.user._id,
+
+      fileName:req.file.originalname,
+
+      revenue,
+
+      profit:revenue,
+
+      salesIds:savedSales.map(
+        sale=>sale._id
+      )
+
+    });
+
 
 
     res.json({
 
       success:true,
 
+      message:"File uploaded successfully",
+
       report:{
+
         revenue,
+
         products,
+
         profit:revenue
-      }
+
+      },
+
+      upload
 
     });
+
 
 
   } catch(error){
@@ -63,8 +120,11 @@ exports.uploadFile = async (req, res) => {
     console.log(error);
 
     res.status(500).json({
+
       success:false,
+
       message:error.message
+
     });
 
   }
