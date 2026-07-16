@@ -1,77 +1,54 @@
-const multer = require("multer");
 const XLSX = require("xlsx");
 
 
-const storage = multer.diskStorage({
+exports.uploadFile = async(req,res)=>{
 
-  destination: function(req, file, cb){
-    cb(null, "uploads/");
-  },
+  try{
 
-  filename: function(req, file, cb){
-    cb(null, Date.now() + "-" + file.originalname);
-  }
+    const workbook = XLSX.read(req.file.buffer);
 
-});
+    const sheetName = workbook.SheetNames[0];
 
-
-const upload = multer({
-  storage: storage
-});
+    const data = XLSX.utils.sheet_to_json(
+      workbook.Sheets[sheetName]
+    );
 
 
-exports.uploadFile = [
-  
-  upload.single("file"),
-
-  async(req,res)=>{
-
-    try{
-
-      const workbook = XLSX.readFile(req.file.path);
-
-      const sheetName = workbook.SheetNames[0];
-
-      const data = XLSX.utils.sheet_to_json(
-        workbook.Sheets[sheetName]
-      );
+    let revenue = 0;
+    let products = 0;
 
 
-      let revenue = 0;
-      let products = 0;
+    data.forEach((item)=>{
+
+      revenue += Number(item.totalAmount || 0);
+
+      products += Number(item.quantity || 0);
+
+    });
 
 
-      data.forEach((item)=>{
+    res.json({
 
-        revenue += Number(item.totalAmount || 0);
+      success:true,
 
-        products += Number(item.quantity || 0);
+      report:{
+        revenue,
+        products,
+        profit: revenue
+      }
 
-      });
-
-
-      res.json({
-
-        success:true,
-
-        report:{
-          revenue,
-          products,
-          profit: revenue
-        }
-
-      });
+    });
 
 
-    }catch(error){
+  }catch(error){
 
-      res.status(500).json({
-        success:false,
-        message:error.message
-      });
+    console.log(error);
 
-    }
+    res.status(500).json({
+      success:false,
+      message:error.message
+    });
 
   }
 
-];
+};
