@@ -1,9 +1,10 @@
 const XLSX = require("xlsx");
+const Sale = require("../models/Sale");
 
 
-exports.uploadFile = async(req,res)=>{
+exports.uploadFile = async (req, res) => {
 
-  try{
+  try {
 
     const workbook = XLSX.read(req.file.buffer);
 
@@ -18,13 +19,30 @@ exports.uploadFile = async(req,res)=>{
     let products = 0;
 
 
-    data.forEach((item)=>{
+    const salesData = data.map((item)=>{
 
-      revenue += Number(item.totalAmount || 0);
+      const quantity = Number(item.quantity || 0);
 
-      products += Number(item.quantity || 0);
+      const totalAmount = Number(item.totalAmount || 0);
+
+
+      revenue += totalAmount;
+
+      products += quantity;
+
+
+      return {
+        user:req.user._id,
+        product:item.product,
+        quantity,
+        price: totalAmount / quantity,
+        totalAmount
+      };
 
     });
+
+
+    await Sale.insertMany(salesData);
 
 
     res.json({
@@ -34,13 +52,13 @@ exports.uploadFile = async(req,res)=>{
       report:{
         revenue,
         products,
-        profit: revenue
+        profit:revenue
       }
 
     });
 
 
-  }catch(error){
+  } catch(error){
 
     console.log(error);
 

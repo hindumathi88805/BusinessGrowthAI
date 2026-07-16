@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
 const multer = require("multer");
+
+const protect = require("../middleware/authMiddleware");
 
 const {
   uploadFile
@@ -16,6 +19,7 @@ const upload = multer({
 
 router.post(
   "/",
+  protect,
   upload.single("file"),
   uploadFile
 );
