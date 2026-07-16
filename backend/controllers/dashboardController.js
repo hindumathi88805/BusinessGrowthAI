@@ -3,6 +3,7 @@ const Expense = require("../models/Expense");
 
 exports.getDashboard = async (req, res) => {
   try {
+
     const sales = await Sale.find({
       user: req.user._id,
     });
@@ -10,6 +11,7 @@ exports.getDashboard = async (req, res) => {
     const expenses = await Expense.find({
       user: req.user._id,
     });
+
 
     const totalSales = sales.reduce(
       (sum, sale) => sum + sale.totalAmount,
@@ -26,40 +28,31 @@ exports.getDashboard = async (req, res) => {
       0
     );
 
+
     const profit = totalSales - totalExpenses;
 
-    const today = new Date();
-
-    const todaySales = sales.filter((sale) => {
-      const saleDate = new Date(sale.saleDate);
-
-      return (
-        saleDate.getDate() === today.getDate() &&
-        saleDate.getMonth() === today.getMonth() &&
-        saleDate.getFullYear() === today.getFullYear()
-      );
-    });
-
-    const todaySalesAmount = todaySales.reduce(
-      (sum, sale) => sum + sale.totalAmount,
-      0
-    );
 
     res.status(200).json({
       success: true,
+
       dashboard: {
         totalSales,
         totalExpenses,
         profit,
         totalProductsSold,
-        todaySales: todaySalesAmount,
       },
+
+      sales,
+      expenses
     });
 
-  } catch (error) {
+
+  } catch(error){
+
     res.status(500).json({
-      success: false,
-      message: error.message,
+      success:false,
+      message:error.message
     });
+
   }
 };
