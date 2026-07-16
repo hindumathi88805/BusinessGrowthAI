@@ -1,22 +1,57 @@
-import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import API from "../services/api";
 
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
 
-function Profile() {
+function Profile(){
 
-  const { user, logout } = useAuth();
+  const [user,setUser] = useState(null);
 
 
-  return (
+  useEffect(()=>{
+
+    fetchUser();
+
+  },[]);
+
+
+
+  const fetchUser = async()=>{
+
+    try{
+
+      const res = await API.get("/auth/profile");
+
+console.log("PROFILE DATA:", res.data);
+
+setUser(res.data.user);
+
+
+    }catch(error){
+
+      console.log(
+        "Profile Error:",
+        error.response?.data || error.message
+      );
+
+    }
+
+  };
+
+
+
+  return(
 
     <div className="flex min-h-screen bg-gray-100">
+
 
       <Sidebar />
 
 
       <div className="flex-1">
+
 
         <Navbar />
 
@@ -25,53 +60,96 @@ function Profile() {
 
 
           <h1 className="text-4xl font-bold mb-8">
-            Profile
+            👤 User Information
           </h1>
 
 
 
-          <div className="bg-white shadow rounded-xl p-8 max-w-lg">
+          {!user ? (
 
+            <div className="bg-white p-6 rounded-xl shadow">
 
-            <h2 className="text-2xl font-bold mb-6">
-              User Information
-            </h2>
-
-
-            {user ? (
-
-              <>
-
-                <p className="text-lg mb-3">
-                  <b>Name:</b> {user.name}
-                </p>
-
-
-                <p className="text-lg mb-6">
-                  <b>Email:</b> {user.email}
-                </p>
-
-
-                <button
-                  onClick={logout}
-                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg"
-                >
-                  Logout
-                </button>
-
-              </>
-
-
-            ) : (
-
-              <p>
-                No user data found
+              <p className="text-gray-500">
+                Loading user information...
               </p>
 
-            )}
+            </div>
 
 
-          </div>
+          ):(
+
+
+            <div className="bg-white rounded-xl shadow-lg p-8 max-w-xl">
+
+
+              <div className="text-center mb-6">
+
+                <div className="w-24 h-24 bg-blue-500 text-white rounded-full flex items-center justify-center text-4xl mx-auto">
+
+                  👤
+
+                </div>
+
+
+              </div>
+
+
+
+
+              <div className="space-y-5">
+
+
+                <div>
+
+                  <h3 className="font-bold text-gray-600">
+                    Name
+                  </h3>
+
+                  <p className="text-xl">
+                    {user.name}
+                  </p>
+
+                </div>
+
+
+
+                <div>
+
+                  <h3 className="font-bold text-gray-600">
+                    Email
+                  </h3>
+
+                  <p className="text-xl">
+                    {user.email}
+                  </p>
+
+                </div>
+
+
+
+                <div>
+
+                  <h3 className="font-bold text-gray-600">
+                    Account Type
+                  </h3>
+
+                  <p className="text-xl">
+                    Business User
+                  </p>
+
+                </div>
+
+
+
+              </div>
+
+
+
+            </div>
+
+
+          )}
+
 
 
         </div>
@@ -81,6 +159,7 @@ function Profile() {
 
 
     </div>
+
 
   );
 

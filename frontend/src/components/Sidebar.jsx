@@ -23,7 +23,12 @@ function Sidebar() {
           📊 Dashboard
         </Link>
 
-
+<Link
+  to="/about"
+  className="block hover:bg-gray-700 p-3 rounded-lg"
+>
+  ℹ️ About
+</Link>
 
         <Link 
           to="/sales"

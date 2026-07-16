@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import Upload from "./pages/Upload";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AIChat from "./pages/AIChat";
+import About from "./pages/About";
 
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
  path="/register"
  element={<Register />}
 />
+<Route path="/about" element={<About />} />
 <Route 
  path="/ai-chat"
  element={<AIChat />}
