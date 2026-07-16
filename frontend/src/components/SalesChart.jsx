@@ -37,7 +37,7 @@ function SalesChart() {
   const fetchSales = async () => {
     try {
 
-      const res = await API.get("/dashboard");
+      const res = await API.get("/sales");
 
       setSales(res.data.sales);
 
