@@ -68,12 +68,15 @@ function Sidebar() {
           📈 Reports
         </Link>
 
+
+
         <Link
-  to="/upload"
-  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800"
->
-  📂 Upload File
-</Link>
+          to="/upload"
+          className="block hover:bg-gray-700 p-3 rounded-lg"
+        >
+          📂 Upload File
+        </Link>
+
 
 
         <Link 
@@ -81,6 +84,15 @@ function Sidebar() {
           className="block hover:bg-gray-700 p-3 rounded-lg"
         >
           🤖 AI Suggestions
+        </Link>
+
+
+
+        <Link 
+          to="/ai-chat"
+          className="block hover:bg-gray-700 p-3 rounded-lg"
+        >
+          💬 AI Chat Assistant
         </Link>
 
 

@@ -5,31 +5,34 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 
 
-function Reports() {
+function Reports(){
 
-  const [report, setReport] = useState(null);
+  const [report,setReport] = useState(null);
 
 
-  useEffect(() => {
+  useEffect(()=>{
 
     fetchReport();
 
-  }, []);
+  },[]);
 
 
 
-  const fetchReport = async () => {
+  const fetchReport = async()=>{
 
-    try {
+    try{
 
-      const res = await API.get("/dashboard");
+      const res = await API.get("/reports");
 
-      setReport(res.data.dashboard);
+      setReport(res.data.report);
 
 
-    } catch(error) {
+    }catch(error){
 
-      console.log("Report Error:", error);
+      console.log(
+        "Report Error:",
+        error.response?.data || error.message
+      );
 
     }
 
@@ -37,9 +40,34 @@ function Reports() {
 
 
 
-  return (
 
-    <div className="flex min-h-screen bg-gray-100">
+  const downloadPDF = ()=>{
+
+    window.open(
+      "https://businessgrowthai.onrender.com/api/reports/pdf",
+      "_blank"
+    );
+
+  };
+
+
+
+  const downloadExcel = ()=>{
+
+    window.open(
+      "https://businessgrowthai.onrender.com/api/reports/excel",
+      "_blank"
+    );
+
+  };
+
+
+
+
+
+  return(
+
+    <div className="flex min-hScreen bg-gray-100">
 
 
       <Sidebar />
@@ -55,33 +83,40 @@ function Reports() {
 
 
           <h1 className="text-4xl font-bold mb-8">
-            Business Reports 📊
+
+            Business Reports 📄
+
           </h1>
+
 
 
 
           {!report ? (
 
-            <p>
-              Loading Reports...
+            <p className="text-xl">
+              Loading Report...
             </p>
 
 
-          ) : (
+          ):(
 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <>
 
 
 
-              <div className="bg-white p-6 rounded-xl shadow">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-8">
 
-                <h2 className="text-xl font-bold">
-                  Total Revenue
+
+
+              <div className="bg-white p-5 rounded-xl shadow">
+
+                <h2 className="font-bold">
+                  Revenue
                 </h2>
 
-                <p className="text-3xl mt-3">
-                  ₹{report.totalSales}
+                <p className="text-3xl text-blue-600">
+                  ₹{report.totalRevenue}
                 </p>
 
               </div>
@@ -89,14 +124,14 @@ function Reports() {
 
 
 
-              <div className="bg-white p-6 rounded-xl shadow">
+              <div className="bg-white p-5 rounded-xl shadow">
 
-                <h2 className="text-xl font-bold">
-                  Total Expenses
+                <h2 className="font-bold">
+                  Expense
                 </h2>
 
-                <p className="text-3xl mt-3">
-                  ₹{report.totalExpenses}
+                <p className="text-3xl text-red-600">
+                  ₹{report.totalExpense}
                 </p>
 
               </div>
@@ -104,13 +139,14 @@ function Reports() {
 
 
 
-              <div className="bg-white p-6 rounded-xl shadow">
 
-                <h2 className="text-xl font-bold">
-                  Net Profit
+              <div className="bg-white p-5 rounded-xl shadow">
+
+                <h2 className="font-bold">
+                  Profit
                 </h2>
 
-                <p className="text-3xl mt-3">
+                <p className="text-3xl text-green-600">
                   ₹{report.profit}
                 </p>
 
@@ -119,14 +155,31 @@ function Reports() {
 
 
 
-              <div className="bg-white p-6 rounded-xl shadow">
 
-                <h2 className="text-xl font-bold">
-                  Products Sold
+              <div className="bg-white p-5 rounded-xl shadow">
+
+                <h2 className="font-bold">
+                  Sales
                 </h2>
 
-                <p className="text-3xl mt-3">
-                  {report.totalProductsSold}
+                <p className="text-3xl">
+                  {report.salesCount}
+                </p>
+
+              </div>
+
+
+
+
+
+              <div className="bg-white p-5 rounded-xl shadow">
+
+                <h2 className="font-bold">
+                  Expenses
+                </h2>
+
+                <p className="text-3xl">
+                  {report.expenseCount}
                 </p>
 
               </div>
@@ -134,6 +187,52 @@ function Reports() {
 
 
             </div>
+
+
+
+
+
+
+            <div className="flex gap-4 mb-8">
+
+
+              <button
+
+                onClick={downloadPDF}
+
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg"
+
+              >
+
+                📄 Download PDF
+
+              </button>
+
+
+
+
+              <button
+
+                onClick={downloadExcel}
+
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg"
+
+              >
+
+                📗 Download Excel
+
+              </button>
+
+
+
+            </div>
+
+
+
+
+
+            </>
+
 
           )}
 

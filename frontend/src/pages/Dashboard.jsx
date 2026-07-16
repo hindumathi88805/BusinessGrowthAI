@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import DashboardCard from "../components/DashboardCard";
 import SalesChart from "../components/SalesChart";
 import ExpenseChart from "../components/ExpenseChart";
+import ProfitChart from "../components/ProfitChart";
 
 
 function Dashboard() {
@@ -14,33 +15,42 @@ function Dashboard() {
 
 
   useEffect(() => {
+
     fetchDashboard();
+
   }, []);
 
 
+
   const fetchDashboard = async () => {
+
     try {
 
       const res = await API.get("/dashboard");
 
-setDashboard(res.data.dashboard);
+      setDashboard(res.data.dashboard);
+
 
     } catch (error) {
 
       console.log("Dashboard Error:", error);
 
     }
+
   };
+
 
 
   return (
 
     <div className="flex min-h-screen bg-gray-100">
 
+
       <Sidebar />
 
 
       <div className="flex-1">
+
 
         <Navbar />
 
@@ -48,21 +58,32 @@ setDashboard(res.data.dashboard);
         <main className="p-8">
 
 
+
           <div className="flex justify-between items-center mb-8">
 
-  <h1 className="text-4xl font-bold">
-    AI Business Growth Dashboard
-  </h1>
+
+            <h1 className="text-4xl font-bold">
+              AI Business Growth Dashboard
+            </h1>
 
 
-  <button
-    onClick={fetchDashboard}
-    className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg"
-  >
-    Refresh
-  </button>
 
-</div>
+            <button
+
+              onClick={fetchDashboard}
+
+              className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg"
+
+            >
+
+              Refresh
+
+            </button>
+
+
+          </div>
+
+
 
 
 
@@ -75,37 +96,58 @@ setDashboard(res.data.dashboard);
 
           ) : (
 
+
             <>
 
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
 
+
                 <DashboardCard
+
                   title="Total Sales"
+
                   value={`₹${dashboard.totalSales}`}
+
                   color="blue"
+
                 />
 
 
+
                 <DashboardCard
+
                   title="Total Expenses"
+
                   value={`₹${dashboard.totalExpenses}`}
+
                   color="red"
+
                 />
 
 
+
                 <DashboardCard
+
                   title="Net Profit"
+
                   value={`₹${dashboard.profit}`}
+
                   color="green"
+
                 />
 
 
+
                 <DashboardCard
+
                   title="Products Sold"
+
                   value={dashboard.totalProductsSold}
+
                   color="purple"
+
                 />
 
 
@@ -113,13 +155,22 @@ setDashboard(res.data.dashboard);
 
 
 
+
+
               <SalesChart />
+
 
 
               <ExpenseChart />
 
 
+
+              <ProfitChart dashboard={dashboard} />
+
+
+
             </>
+
 
           )}
 
@@ -133,6 +184,7 @@ setDashboard(res.data.dashboard);
     </div>
 
   );
+
 }
 
 
