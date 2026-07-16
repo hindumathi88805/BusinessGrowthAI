@@ -10,7 +10,7 @@ import Profile from "./pages/Profile";
 import AddSale from "./pages/AddSale";
 import AddExpense from "./pages/AddExpense";
 import Register from "./pages/Register";
-
+import Upload from "./pages/Upload";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -87,7 +87,7 @@ function App() {
           </ProtectedRoute>
         }
       />
-
+<Route path="/upload" element={<Upload />} />
 
       <Route
         path="/reports"

@@ -13,7 +13,7 @@ function Sidebar() {
 
 
 
-      <nav className="space-y-4">
+      <nav className="space-y-2">
 
 
         <Link 
@@ -68,6 +68,12 @@ function Sidebar() {
           📈 Reports
         </Link>
 
+        <Link
+  to="/upload"
+  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800"
+>
+  📂 Upload File
+</Link>
 
 
         <Link 
